@@ -56,7 +56,7 @@
             this.groupBox3.Location = new System.Drawing.Point(301, 66);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(170, 209);
-            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Inside Elevator";
             // 
@@ -65,7 +65,7 @@
             this.btnElevatorRequestToGFloor.Location = new System.Drawing.Point(48, 123);
             this.btnElevatorRequestToGFloor.Name = "btnElevatorRequestToGFloor";
             this.btnElevatorRequestToGFloor.Size = new System.Drawing.Size(75, 23);
-            this.btnElevatorRequestToGFloor.TabIndex = 5;
+            this.btnElevatorRequestToGFloor.TabIndex = 2;
             this.btnElevatorRequestToGFloor.Text = "0";
             this.btnElevatorRequestToGFloor.UseVisualStyleBackColor = true;
             // 
@@ -74,7 +74,7 @@
             this.btnElevatorRequestToFFloor.Location = new System.Drawing.Point(48, 74);
             this.btnElevatorRequestToFFloor.Name = "btnElevatorRequestToFFloor";
             this.btnElevatorRequestToFFloor.Size = new System.Drawing.Size(75, 23);
-            this.btnElevatorRequestToFFloor.TabIndex = 4;
+            this.btnElevatorRequestToFFloor.TabIndex = 3;
             this.btnElevatorRequestToFFloor.Text = "1";
             this.btnElevatorRequestToFFloor.UseVisualStyleBackColor = true;
             // 
@@ -94,7 +94,7 @@
             this.groupBox4.Location = new System.Drawing.Point(508, 69);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(163, 206);
-            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Log Information";
             // 
@@ -104,7 +104,7 @@
             this.groupBox1.Location = new System.Drawing.Point(113, 114);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(150, 80);
-            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Floor 0";
             // 
@@ -113,7 +113,7 @@
             this.btnRequestToFFloor.Location = new System.Drawing.Point(38, 36);
             this.btnRequestToFFloor.Name = "btnRequestToFFloor";
             this.btnRequestToFFloor.Size = new System.Drawing.Size(75, 23);
-            this.btnRequestToFFloor.TabIndex = 5;
+            this.btnRequestToFFloor.TabIndex = 1;
             this.btnRequestToFFloor.Text = "1";
             this.btnRequestToFFloor.UseVisualStyleBackColor = true;
             // 
@@ -123,7 +123,7 @@
             this.groupBox2.Location = new System.Drawing.Point(113, 195);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(150, 80);
-            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Floor 1";
             // 
@@ -132,7 +132,7 @@
             this.btnRequestToGFloor.Location = new System.Drawing.Point(38, 34);
             this.btnRequestToGFloor.Name = "btnRequestToGFloor";
             this.btnRequestToGFloor.Size = new System.Drawing.Size(75, 23);
-            this.btnRequestToGFloor.TabIndex = 9;
+            this.btnRequestToGFloor.TabIndex = 0;
             this.btnRequestToGFloor.Text = "0";
             this.btnRequestToGFloor.UseVisualStyleBackColor = true;
             // 
@@ -141,7 +141,7 @@
             this.btnRequestLog.Location = new System.Drawing.Point(7, 20);
             this.btnRequestLog.Name = "btnRequestLog";
             this.btnRequestLog.Size = new System.Drawing.Size(150, 23);
-            this.btnRequestLog.TabIndex = 0;
+            this.btnRequestLog.TabIndex = 4;
             this.btnRequestLog.Text = "Request Log";
             this.btnRequestLog.UseVisualStyleBackColor = true;
             // 
@@ -151,7 +151,7 @@
             this.groupBox0.Location = new System.Drawing.Point(113, 65);
             this.groupBox0.Name = "groupBox0";
             this.groupBox0.Size = new System.Drawing.Size(150, 43);
-            this.groupBox0.TabIndex = 9;
+            this.groupBox0.TabIndex = 2;
             this.groupBox0.TabStop = false;
             this.groupBox0.Text = "Floor Number Display";
             // 
@@ -169,9 +169,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(7, 50);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(13, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
+            this.label1.Text = "--";
             // 
             // Form1
             // 
@@ -183,7 +183,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
-            this.MinimizeBox = false;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Window";
