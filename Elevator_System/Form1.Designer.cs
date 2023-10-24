@@ -77,11 +77,12 @@
             this.btnElevatorRequestToFFloor.TabIndex = 3;
             this.btnElevatorRequestToFFloor.Text = "1";
             this.btnElevatorRequestToFFloor.UseVisualStyleBackColor = true;
+            this.btnElevatorRequestToFFloor.Click += new System.EventHandler(this.btnElevatorRequestToFFloor_Click);
             // 
             // lblDisplayFloorNumberInsideElevator
             // 
             this.lblDisplayFloorNumberInsideElevator.AutoSize = true;
-            this.lblDisplayFloorNumberInsideElevator.Location = new System.Drawing.Point(64, 33);
+            this.lblDisplayFloorNumberInsideElevator.Location = new System.Drawing.Point(56, 33);
             this.lblDisplayFloorNumberInsideElevator.Name = "lblDisplayFloorNumberInsideElevator";
             this.lblDisplayFloorNumberInsideElevator.Size = new System.Drawing.Size(13, 13);
             this.lblDisplayFloorNumberInsideElevator.TabIndex = 3;
@@ -158,7 +159,7 @@
             // lblDisplayFloorNumber
             // 
             this.lblDisplayFloorNumber.AutoSize = true;
-            this.lblDisplayFloorNumber.Location = new System.Drawing.Point(62, 16);
+            this.lblDisplayFloorNumber.Location = new System.Drawing.Point(55, 16);
             this.lblDisplayFloorNumber.Name = "lblDisplayFloorNumber";
             this.lblDisplayFloorNumber.Size = new System.Drawing.Size(13, 13);
             this.lblDisplayFloorNumber.TabIndex = 0;
@@ -188,6 +189,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Window";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
