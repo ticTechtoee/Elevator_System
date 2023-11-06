@@ -11,6 +11,11 @@ namespace Elevator_System
             InitializeComponent();
         }
 
+        private Stopwatch stopwatch = new Stopwatch();
+        string stateOfElevator = "";
+        string floorStatus = "";
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // On Start, elevator is at the Ground Floor that is 0 on our case
@@ -20,11 +25,13 @@ namespace Elevator_System
             lblDisplayFloorNumber.Text = "0";
         }
 
-        private Stopwatch stopwatch = new Stopwatch();
 
         private void btnElevatorRequestToFFloor_Click(object sender, EventArgs e)
         {
             // State of the Elevator is going to change from the last stage
+
+            stateOfElevator = "Going Up";
+            floorStatus = "First Floor";
 
             // Start the stopwatch when the button is pressed
             stopwatch.Start();
@@ -40,9 +47,18 @@ namespace Elevator_System
         {
             // State of the Elevator is going to change from the last stage
 
+            stateOfElevator = "Going Down";
+            floorStatus = "Ground Floor";
+
+
+            // Start the stopwatch when the button is pressed
+            stopwatch.Start();
+            tmrTimeDurartion.Enabled = true;
+            tmrTimeDurartion.Start();
+
             // Door Closed
-            lblDisplayFloorNumberInsideElevator.Text = "Going Down";
-            lblDisplayFloorNumber.Text = "Going Down";
+            lblDisplayFloorNumberInsideElevator.Text = stateOfElevator;
+            lblDisplayFloorNumber.Text = stateOfElevator;
         }
 
         private void tmrTimeDurartion_Tick(object sender, EventArgs e)
@@ -54,20 +70,23 @@ namespace Elevator_System
             if (elapsed.TotalSeconds >= 5)
             {
                 // Door Closed
-                lblDisplayFloorNumberInsideElevator.Text = "Reached At First Floor";
-                lblDisplayFloorNumber.Text = "1st Floor";
+                lblDisplayFloorNumberInsideElevator.Text = "Reached At " + floorStatus;
+                lblDisplayFloorNumber.Text = floorStatus;
 
                 // Stop the timer and the stopwatch
                 tmrTimeDurartion.Stop();
                 stopwatch.Stop();
+                stopwatch.Reset();
+                tmrTimeDurartion.Enabled = false;
+
             }
             else
             {
                 // State of the Elevator is going to change from the last stage
 
                 // Door Closed
-                lblDisplayFloorNumberInsideElevator.Text = "Going Up";
-                lblDisplayFloorNumber.Text = "Going Up";
+                lblDisplayFloorNumberInsideElevator.Text = stateOfElevator;
+                lblDisplayFloorNumber.Text = stateOfElevator;
             }
         }
     }
