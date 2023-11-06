@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Elevator_System
@@ -26,15 +20,55 @@ namespace Elevator_System
             lblDisplayFloorNumber.Text = "0";
         }
 
+        private Stopwatch stopwatch = new Stopwatch();
+
         private void btnElevatorRequestToFFloor_Click(object sender, EventArgs e)
         {
             // State of the Elevator is going to change from the last stage
 
-            // Door Closed
-            lblDisplayFloorNumberInsideElevator.Text = "Going Up";
-            lblDisplayFloorNumber.Text = "Going Up";
-            
+            // Start the stopwatch when the button is pressed
+            stopwatch.Start();
+            tmrTimeDurartion.Enabled = true;
+            tmrTimeDurartion.Start();
 
+
+
+
+        }
+
+        private void btnElevatorRequestToGFloor_Click(object sender, EventArgs e)
+        {
+            // State of the Elevator is going to change from the last stage
+
+            // Door Closed
+            lblDisplayFloorNumberInsideElevator.Text = "Going Down";
+            lblDisplayFloorNumber.Text = "Going Down";
+        }
+
+        private void tmrTimeDurartion_Tick(object sender, EventArgs e)
+        {
+            // Get the elapsed time from the stopwatch
+            TimeSpan elapsed = stopwatch.Elapsed;
+
+            // Check if 10 seconds have passed
+            if (elapsed.TotalSeconds >= 5)
+            {
+                // Door Closed
+                lblDisplayFloorNumberInsideElevator.Text = "Reached At First Floor";
+                lblDisplayFloorNumber.Text = "1st Floor";
+
+                // Stop the timer and the stopwatch
+                tmrTimeDurartion.Stop();
+                stopwatch.Stop();
+            }
+            else
+            {
+                // State of the Elevator is going to change from the last stage
+
+                // Door Closed
+                lblDisplayFloorNumberInsideElevator.Text = "Going Up";
+                lblDisplayFloorNumber.Text = "Going Up";
+            }
         }
     }
 }
