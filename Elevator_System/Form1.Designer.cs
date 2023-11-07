@@ -119,6 +119,7 @@
             this.btnRequestLog.TabIndex = 4;
             this.btnRequestLog.Text = "Request Log";
             this.btnRequestLog.UseVisualStyleBackColor = true;
+            this.btnRequestLog.Click += new System.EventHandler(this.btnRequestLog_Click);
             // 
             // groupBox1
             // 

@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Data.OleDb;
+
+using System.IO;
+using System.Reflection;
+using System.Data.OleDb;
 
 namespace Elevator_System
 {
@@ -9,6 +14,8 @@ namespace Elevator_System
         public Form1()
         {
             InitializeComponent();
+
+           
         }
 
         private Stopwatch stopwatch = new Stopwatch();
@@ -89,5 +96,107 @@ namespace Elevator_System
                 lblDisplayFloorNumber.Text = stateOfElevator;
             }
         }
+
+
+
+        // Functions related to database Operations
+
+        private string ExtractResource(string resourceName, string destinationPath)
+        {
+            string extractedFilePath = Path.Combine(destinationPath, resourceName);
+
+            if (!File.Exists(extractedFilePath))
+            {
+                using (Stream input = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                using (Stream output = File.Create(extractedFilePath))
+                {
+                    input.CopyTo(output);
+                }
+            }
+
+            return extractedFilePath;
+        }
+
+        private void UseDatabase(string databasePath, string value1, string value2)
+        {
+            try
+            {
+                string connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={databasePath}";
+                OleDbConnection connection = new OleDbConnection(connectionString);
+                connection.Open();
+
+                string insertQuery = "INSERT INTO logTable (logTime, logDescription) VALUES (@value1, @Value2)";
+                OleDbCommand insertCommand = new OleDbCommand(insertQuery, connection);
+                insertCommand.Parameters.AddWithValue("@value1", value1);
+                insertCommand.Parameters.AddWithValue("@Value2", value2);
+
+                insertCommand.ExecuteNonQuery();
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+            }
+        }
+
+
+        public void RetrieveData(string databasePath)
+        {
+            try
+            {
+                string connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={databasePath}";
+                OleDbConnection connection = new OleDbConnection(connectionString);
+                connection.Open();
+
+                string selectQuery = "SELECT ID, logTime, logDescription FROM logTable";
+                OleDbCommand selectCommand = new OleDbCommand(selectQuery, connection);
+
+                OleDbDataReader reader = selectCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0); // Adjust data types as needed
+                    string logTime = reader.GetString(1);
+                    string logDescription = reader.GetString(2);
+
+                    MessageBox.Show(" " + id.ToString() + " " + logTime.ToString() +" " + logDescription.ToString());
+
+
+                    // Process the retrieved data, e.g., display it in your WinForms application.
+                }
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (e.g., display an error message or log the error).
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+       
+
+
+
+
+        private void btnRequestLog_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string mainPath = Application.StartupPath;
+                string databasePath = mainPath + @"\Resources\dbElevatorLog.accdb";
+
+                string formattedDateTime = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+
+                UseDatabase(databasePath, formattedDateTime.ToString(), "YourLogDescription");
+
+                RetrieveData(databasePath);
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show("An Error Occurred: " + exp.Message);
+            }
+        }
+
     }
 }
