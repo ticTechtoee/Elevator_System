@@ -5,7 +5,6 @@ using System.Data.OleDb;
 
 using System.IO;
 using System.Reflection;
-using System.Data.OleDb;
 
 namespace Elevator_System
 {
@@ -15,13 +14,23 @@ namespace Elevator_System
         {
             InitializeComponent();
 
-           
+
         }
 
         private Stopwatch stopwatch = new Stopwatch();
         string stateOfElevator = "";
         string floorStatus = "";
+        DateTime recordTimeAndDate;
+        Boolean reachedAt = false;
+        Boolean buttonPushed = false;
 
+
+        private string getDatabasePath()
+        {
+            string mainPath = Application.StartupPath;
+            string databasePath = mainPath + @"\Resources\dbElevatorLog.accdb";
+            return databasePath;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -35,18 +44,24 @@ namespace Elevator_System
 
         private void btnElevatorRequestToFFloor_Click(object sender, EventArgs e)
         {
-            // State of the Elevator is going to change from the last stage
+          
+                buttonPushed = true;
+                recordTimeAndDate = DateTime.Now;
 
-            stateOfElevator = "Going Up";
-            floorStatus = "First Floor";
+                // State of the Elevator is going to change from the last stage
 
-            // Start the stopwatch when the button is pressed
-            stopwatch.Start();
-            tmrTimeDurartion.Enabled = true;
-            tmrTimeDurartion.Start();
+                stateOfElevator = "Going Up";
+                floorStatus = "First Floor";
 
+                // Start the stopwatch when the button is pressed
+                stopwatch.Start();
+                tmrTimeDurartion.Enabled = true;
+                tmrTimeDurartion.Start();
 
-
+                reachedAt = false;
+                // Door Closed Log
+                UseDatabase(getDatabasePath(), recordTimeAndDate.ToString(), "Door Closed At " + floorStatus);
+    
 
         }
 
@@ -62,10 +77,10 @@ namespace Elevator_System
             stopwatch.Start();
             tmrTimeDurartion.Enabled = true;
             tmrTimeDurartion.Start();
+            reachedAt = false;
 
-            // Door Closed
-            lblDisplayFloorNumberInsideElevator.Text = stateOfElevator;
-            lblDisplayFloorNumber.Text = stateOfElevator;
+            // Door Closed Log
+            UseDatabase(getDatabasePath(), recordTimeAndDate.ToString(), "Door Closed At " + floorStatus);
         }
 
         private void tmrTimeDurartion_Tick(object sender, EventArgs e)
@@ -73,10 +88,10 @@ namespace Elevator_System
             // Get the elapsed time from the stopwatch
             TimeSpan elapsed = stopwatch.Elapsed;
 
-            // Check if 10 seconds have passed
+            // Check if 5 seconds have passed
             if (elapsed.TotalSeconds >= 5)
             {
-                // Door Closed
+                // Reached At the Requested Floor
                 lblDisplayFloorNumberInsideElevator.Text = "Reached At " + floorStatus;
                 lblDisplayFloorNumber.Text = floorStatus;
 
@@ -85,6 +100,14 @@ namespace Elevator_System
                 stopwatch.Stop();
                 stopwatch.Reset();
                 tmrTimeDurartion.Enabled = false;
+                reachedAt = true;
+                recordTimeAndDate = DateTime.Now;
+
+                if (reachedAt)
+                { 
+                // Reached at Log
+                UseDatabase(getDatabasePath(), recordTimeAndDate.ToString(), stateOfElevator + " Reached At " + floorStatus);
+                }
 
             }
             else
@@ -94,28 +117,14 @@ namespace Elevator_System
                 // Door Closed
                 lblDisplayFloorNumberInsideElevator.Text = stateOfElevator;
                 lblDisplayFloorNumber.Text = stateOfElevator;
+
             }
         }
 
 
 
         // Functions related to database Operations
-
-        private string ExtractResource(string resourceName, string destinationPath)
-        {
-            string extractedFilePath = Path.Combine(destinationPath, resourceName);
-
-            if (!File.Exists(extractedFilePath))
-            {
-                using (Stream input = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-                using (Stream output = File.Create(extractedFilePath))
-                {
-                    input.CopyTo(output);
-                }
-            }
-
-            return extractedFilePath;
-        }
+          
 
         private void UseDatabase(string databasePath, string value1, string value2)
         {
@@ -160,10 +169,11 @@ namespace Elevator_System
                     string logTime = reader.GetString(1);
                     string logDescription = reader.GetString(2);
 
-                    MessageBox.Show(" " + id.ToString() + " " + logTime.ToString() +" " + logDescription.ToString());
+                   
 
+                    txtBoxRequestLog.Text += "Entry: " + id.ToString()+ Environment.NewLine + "Log Time: " + logTime.ToString() + Environment.NewLine + "Log Desc: " + logDescription.ToString() + Environment.NewLine;
 
-                    // Process the retrieved data, e.g., display it in your WinForms application.
+                    
                 }
 
                 connection.Close();
@@ -171,10 +181,10 @@ namespace Elevator_System
             catch (Exception ex)
             {
                 // Handle exceptions (e.g., display an error message or log the error).
-                Console.WriteLine("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
-       
+
 
 
 
@@ -183,20 +193,53 @@ namespace Elevator_System
         {
             try
             {
-                string mainPath = Application.StartupPath;
-                string databasePath = mainPath + @"\Resources\dbElevatorLog.accdb";
-
-                string formattedDateTime = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
-
-                UseDatabase(databasePath, formattedDateTime.ToString(), "YourLogDescription");
-
-                RetrieveData(databasePath);
+                txtBoxRequestLog.Text = "";
+                RetrieveData(getDatabasePath());
             }
             catch (Exception exp)
             {
                 MessageBox.Show("An Error Occurred: " + exp.Message);
             }
+
+
         }
 
+        private void btnRequestToFFloor_Click(object sender, EventArgs e)
+        {
+            recordTimeAndDate = DateTime.Now;
+
+            // State of the Elevator is going to change from the last stage
+
+            stateOfElevator = "Going Up";
+            floorStatus = "First Floor";
+
+            // Start the stopwatch when the button is pressed
+            stopwatch.Start();
+            tmrTimeDurartion.Enabled = true;
+            tmrTimeDurartion.Start();
+
+            reachedAt = false;
+            // Door Closed Log
+            UseDatabase(getDatabasePath(), recordTimeAndDate.ToString(), "Door Closed At " + floorStatus);
+        }
+
+        private void btnRequestToGFloor_Click(object sender, EventArgs e)
+        {
+
+            // State of the Elevator is going to change from the last stage
+
+            stateOfElevator = "Going Down";
+            floorStatus = "Ground Floor";
+
+
+            // Start the stopwatch when the button is pressed
+            stopwatch.Start();
+            tmrTimeDurartion.Enabled = true;
+            tmrTimeDurartion.Start();
+            reachedAt = false;
+
+            // Door Closed Log
+            UseDatabase(getDatabasePath(), recordTimeAndDate.ToString(), "Door Closed At " + floorStatus);
+        }
     }
 }

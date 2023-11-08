@@ -34,7 +34,6 @@
             this.btnElevatorRequestToFFloor = new System.Windows.Forms.Button();
             this.lblDisplayFloorNumberInsideElevator = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnRequestLog = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnRequestToFFloor = new System.Windows.Forms.Button();
@@ -43,6 +42,7 @@
             this.groupBox0 = new System.Windows.Forms.GroupBox();
             this.lblDisplayFloorNumber = new System.Windows.Forms.Label();
             this.tmrTimeDurartion = new System.Windows.Forms.Timer(this.components);
+            this.txtBoxRequestLog = new System.Windows.Forms.RichTextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -90,10 +90,11 @@
             this.lblDisplayFloorNumberInsideElevator.Size = new System.Drawing.Size(13, 13);
             this.lblDisplayFloorNumberInsideElevator.TabIndex = 3;
             this.lblDisplayFloorNumberInsideElevator.Text = "--";
+            this.lblDisplayFloorNumberInsideElevator.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label1);
+            this.groupBox4.Controls.Add(this.txtBoxRequestLog);
             this.groupBox4.Controls.Add(this.btnRequestLog);
             this.groupBox4.Location = new System.Drawing.Point(508, 69);
             this.groupBox4.Name = "groupBox4";
@@ -101,15 +102,6 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Log Information";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 50);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(13, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "--";
             // 
             // btnRequestLog
             // 
@@ -139,6 +131,7 @@
             this.btnRequestToFFloor.TabIndex = 1;
             this.btnRequestToFFloor.Text = "1";
             this.btnRequestToFFloor.UseVisualStyleBackColor = true;
+            this.btnRequestToFFloor.Click += new System.EventHandler(this.btnRequestToFFloor_Click);
             // 
             // groupBox2
             // 
@@ -158,6 +151,7 @@
             this.btnRequestToGFloor.TabIndex = 0;
             this.btnRequestToGFloor.Text = "0";
             this.btnRequestToGFloor.UseVisualStyleBackColor = true;
+            this.btnRequestToGFloor.Click += new System.EventHandler(this.btnRequestToGFloor_Click);
             // 
             // groupBox0
             // 
@@ -177,11 +171,21 @@
             this.lblDisplayFloorNumber.Size = new System.Drawing.Size(13, 13);
             this.lblDisplayFloorNumber.TabIndex = 0;
             this.lblDisplayFloorNumber.Text = "--";
+            this.lblDisplayFloorNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tmrTimeDurartion
             // 
             this.tmrTimeDurartion.Interval = 1000;
             this.tmrTimeDurartion.Tick += new System.EventHandler(this.tmrTimeDurartion_Tick);
+            // 
+            // txtBoxRequestLog
+            // 
+            this.txtBoxRequestLog.Location = new System.Drawing.Point(7, 49);
+            this.txtBoxRequestLog.Name = "txtBoxRequestLog";
+            this.txtBoxRequestLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.txtBoxRequestLog.Size = new System.Drawing.Size(150, 151);
+            this.txtBoxRequestLog.TabIndex = 5;
+            this.txtBoxRequestLog.Text = "";
             // 
             // Form1
             // 
@@ -202,7 +206,6 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox0.ResumeLayout(false);
@@ -224,8 +227,8 @@
         private System.Windows.Forms.Button btnRequestLog;
         private System.Windows.Forms.GroupBox groupBox0;
         private System.Windows.Forms.Label lblDisplayFloorNumber;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer tmrTimeDurartion;
+        private System.Windows.Forms.RichTextBox txtBoxRequestLog;
     }
 }
 
